@@ -1,26 +1,24 @@
-import { useCart } from "../context/CartContext"
+import { useCart } from "../context/CartContext";
+import { Link } from "react-router-dom";
 
 function Cart() {
-
   const {
     cart,
     removeFromCart,
     increaseQuantity,
     decreaseQuantity,
     total,
-    count
-  } = useCart()
+    count,
+  } = useCart();
 
   return (
     <div>
-
       <h1>Cart</h1>
 
       {cart.length === 0 && <p>Your cart is empty</p>}
 
-      {cart.map(item => (
+      {cart.map((item) => (
         <div key={item.id}>
-
           <h3>{item.name}</h3>
 
           <p>{item.price} €</p>
@@ -33,17 +31,17 @@ function Cart() {
 
           <p>Subtotal: {item.price * item.quantity} €</p>
 
-          <button onClick={() => removeFromCart(item.id)}>
-            Remove
-          </button>
-
+          <button onClick={() => removeFromCart(item.id)}>Remove</button>
         </div>
       ))}
 
       <h2>Total: {total.toFixed(2)} €</h2>
 
+      <Link to="/checkout">
+        <button>Go to Checkout</button>
+      </Link>
     </div>
-  )
+  );
 }
 
-export default Cart
+export default Cart;

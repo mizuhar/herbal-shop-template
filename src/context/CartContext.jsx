@@ -58,6 +58,9 @@ export function CartProvider({ children }) {
   (sum, item) => sum + item.quantity,
   0
 )
+function clearCart() {
+  setCart([])
+}
 
   return (
     <CartContext.Provider value={{
@@ -67,7 +70,8 @@ export function CartProvider({ children }) {
       increaseQuantity,
       decreaseQuantity,
       total,
-      count
+      count,
+      clearCart
     }}>
       {children}
     </CartContext.Provider>
