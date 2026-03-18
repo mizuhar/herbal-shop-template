@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useCart } from "../context/CartContext"
 import { supabase } from "../lib/supabase"
-import { useEffect } from "react"
+
 
 function Checkout() {
 
