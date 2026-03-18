@@ -14,6 +14,8 @@ export default function Navbar() {
 
       <Link to="/contact">Contact</Link>
 
+      <Link to="/cart">Cart</Link>
+
     </nav>
 
   );

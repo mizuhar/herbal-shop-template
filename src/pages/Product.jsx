@@ -1,11 +1,12 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabase"
+import { useCart } from "../context/CartContext"
 
 
 export default function Product() {
 
-
+  const { addToCart } = useCart()
   const {id} = useParams()
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -48,7 +49,9 @@ export default function Product() {
 
       <h2>{product.price} €</h2>
 
-      <button>Add to Cart</button>
+      <button onClick={() => addToCart(product)}>
+        Add to Cart
+        </button>
 
     </div>
   )
