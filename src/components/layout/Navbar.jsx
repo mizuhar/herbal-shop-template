@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useCart } from "../../context/CartContext"
 
 export default function Navbar() {
+
+  const { count } = useCart()
 
   return (
 
@@ -14,7 +17,9 @@ export default function Navbar() {
 
       <Link to="/contact">Contact</Link>
 
-      <Link to="/cart">Cart</Link>
+      <Link to="/cart" className="cart-link">
+  Cart <span className="badge">{count}</span>
+</Link>
 
     </nav>
 
