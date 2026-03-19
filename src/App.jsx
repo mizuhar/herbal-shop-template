@@ -1,6 +1,9 @@
 import { Routes, Route } from "react-router-dom";
 
+import Admin from "./admin/Admin"
+
 import Layout from "./components/layout/Layout";
+
 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -17,6 +20,8 @@ function App() {
     <Layout>
 
       <Routes>
+
+        <Route path="/admin" element={<Admin />} />
 
         <Route path="/" element={<Home />} />
 

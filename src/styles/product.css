@@ -64,3 +64,19 @@
   padding: 4px 8px;
   font-size: 12px;
 }
+.order-card {
+  border: 1px solid #eee;
+  padding: 16px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  background: white;
+}
+.done {
+  color: green;
+  font-weight: bold;
+}
+
+.pending {
+  color: orange;
+  font-weight: bold;
+}
