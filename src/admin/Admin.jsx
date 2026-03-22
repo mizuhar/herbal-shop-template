@@ -1,33 +1,59 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
+import { useNavigate } from "react-router-dom"
 
 function Admin() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [updatingId, setUpdatingId] = useState(null);
+
+  const navigate = useNavigate()
 
   useEffect(() => {
-    async function fetchOrders() {
-      const { data, error } = await supabase
-        .from("orders")
-        .select("*")
-        .order("created_at", { ascending: false });
+  async function init() {
 
-      if (error) {
-        console.error(error);
-      } else {
-        setOrders(data);
-      }
+    const { data } = await supabase.auth.getUser()
 
-      setLoading(false);
+    if (!data.user) {
+      navigate("/login")
+      return // ❗ СПИРА execution-а
     }
 
-    fetchOrders();
-  }, []);
+    // 👉 само ако е логнат
+    const { data: ordersData, error } = await supabase
+      .from("orders")
+      .select("*")
+      .order("created_at", { ascending: false })
+
+    if (error) {
+      console.error(error)
+    } else {
+      setOrders(ordersData)
+    }
+
+    setLoading(false)
+  }
+
+  init()
+}, [navigate])
 
   async function updateStatus(id) {
-    await supabase.from("orders").update({ status: "completed" }).eq("id", id);
+    setUpdatingId(id);
 
-    location.reload();
+    const { error } = await supabase
+      .from("orders")
+      .update({ status: "completed" })
+      .eq("id", id);
+
+    if (!error) {
+      setOrders((prev) =>
+        prev.map((order) =>
+          order.id === id ? { ...order, status: "completed" } : order,
+        ),
+      );
+    }
+
+    setUpdatingId(null);
   }
 
   if (loading) return <p>Loading orders...</p>;
@@ -54,7 +80,7 @@ function Admin() {
 
           {order.status !== "completed" && (
             <button onClick={() => updateStatus(order.id)}>
-              Mark as completed
+              {updatingId === order.id ? "Updating..." : "Mark as completed"}
             </button>
           )}
 
