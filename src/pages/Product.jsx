@@ -49,7 +49,9 @@ export default function Product() {
 
       <h2>{product.price} €</h2>
 
-      <button onClick={() => addToCart(product)}>
+      <button onClick={() => {
+      console.log(product)
+        addToCart(product)}}>
         Add to Cart
         </button>
 

@@ -9,7 +9,7 @@ nav {
 
 .nav-links {
   display: flex;
-  gap: 20px;
+  gap: 27px;
 }
 
 nav a {
@@ -37,4 +37,19 @@ h3 {
 }
 main.container {
   min-height: 80vh;
+}
+.cart-link {
+  position: relative;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -8px;
+  right: -25px;
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 4px 6px;
+  border-radius: 50%;
+  font-weight: bold;
 }

@@ -16,6 +16,8 @@
   aspect-ratio: 1 / 1;
   overflow: hidden;
   border-radius: 12px;
+  position: relative;
+  z-index: 1;
 }
 
 .image-wrapper img {
@@ -42,6 +44,8 @@
   color: white;
   border-radius: 8px;
   cursor: pointer;
+   position: relative;
+  z-index: 2;
 }
 .product-grid {
   display: grid;
