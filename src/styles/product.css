@@ -1,21 +1,21 @@
 .product-card {
   border: 1px solid #eee;
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 16px;
-  transition: 0.3s;
   background: white;
+  transition: all 0.25s ease;
 }
 
 .product-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-6px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.1);
 }
 
 .image-wrapper {
   width: 100%;
-  height: 200px;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 12px;
 }
 
 .image-wrapper img {
@@ -30,7 +30,7 @@
 
 .price {
   font-weight: bold;
-  color: green;
+  color: #2e7d32;
 }
 
 .btn {
@@ -46,7 +46,7 @@
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 20px;
+  gap: 24px;
 }
 .product-page {
   max-width: 800px;

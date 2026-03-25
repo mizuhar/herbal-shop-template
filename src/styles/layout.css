@@ -1,12 +1,39 @@
 nav {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 40px;
+  border-bottom: 1px solid #eee;
+  background: white;
+}
+
+.nav-links {
+  display: flex;
   gap: 20px;
-  padding: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+}
+
+nav a:hover {
+  color: #2e7d32;
 }
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 40px 20px;
+}
+
+h1 {
+  margin-bottom: 20px;
+  font-size: 28px;
+}
+
+h3 {
+  margin: 10px 0;
 }
 main.container {
   min-height: 80vh;

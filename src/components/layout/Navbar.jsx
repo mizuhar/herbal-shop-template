@@ -26,29 +26,25 @@ async function handleLogout() {
 
   return (
 <>
-    {user && <h1>Welcome</h1>}
-    <nav>
-      <Link to="/">Home</Link>
+   <nav>
+  <h2>Herbal Shop</h2>
 
-      <Link to="/shop">Shop</Link>
+  <div className="nav-links">
+    <Link to="/">Home</Link>
+    <Link to="/shop">Shop</Link>
+    <Link to="/contact">Contact</Link>
+    <Link to="/cart">Cart</Link>
 
-      <Link to="/about">About</Link>
-
-      <Link to="/contact">Contact</Link>
-
-      <Link to="/cart" className="cart-link">
-        Cart <span className="badge">{count}</span>
-      </Link>
-
-      {user ? (
-  <>
-    <Link to="/admin">Admin</Link>
-    <Link onClick={handleLogout}>Logout</Link>
-  </>
-) : (
-  <Link to="/login">Login</Link>
-)}
-    </nav>
+    {user ? (
+      <>
+        <Link to="/admin">Admin</Link>
+        <button onClick={handleLogout}>Logout</button>
+      </>
+    ) : (
+      <Link to="/login">Login</Link>
+    )}
+  </div>
+</nav>
 
     </>
   );
