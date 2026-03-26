@@ -1,7 +1,9 @@
 header {
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  flex-wrap: wrap; /* 🔥 важно */
 }
 
 nav {
@@ -16,6 +18,7 @@ nav {
 .nav-links {
   display: flex;
   gap: 27px;
+  margin-left: auto;
 }
 
 nav a {
@@ -102,4 +105,8 @@ main.container {
 
 .hero-btn:hover {
   background: #1b5e20;
+}
+.logo {
+  font-weight: 700;
+  white-space: nowrap; /* 🔥 предотвратява чупене */
 }

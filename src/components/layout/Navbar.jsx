@@ -26,8 +26,8 @@ export default function Navbar() {
 
   return (
     <>
-      <nav>
-        <h2>Herbal Shop</h2>
+      <nav className="navbar">
+        <h2 className="logo">Herbal Shop</h2>
 
         <div className="nav-links">
           <Link to="/">Home</Link>

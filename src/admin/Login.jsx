@@ -1,47 +1,50 @@
 import { useState } from "react"
 import { supabase } from "../lib/supabase"
+import { useNavigate } from "react-router-dom"
 
-function Login() {
-
+export default function Login() {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const navigate = useNavigate()
 
   async function handleLogin(e) {
     e.preventDefault()
 
     const { error } = await supabase.auth.signInWithPassword({
       email,
-      password
+      password,
     })
 
     if (error) {
-      alert(error.message)
+      alert("Invalid credentials")
     } else {
-      window.location.href = "/admin"
+      navigate("/admin")
     }
   }
 
   return (
-    <div>
-      <h1>Admin Login</h1>
+    <div className="container">
+      <div className="login">
+        <h1>Admin Login</h1>
 
-      <form onSubmit={handleLogin}>
-        <input
-          type="email"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <form onSubmit={handleLogin}>
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
 
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={(e) => setPassword(e.target.value)}
-        />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
 
-        <button>Login</button>
-      </form>
+          <button>Login</button>
+        </form>
+      </div>
     </div>
   )
 }
-
-export default Login
