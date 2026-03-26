@@ -1,4 +1,4 @@
-import Header from "./Header";
+import Navbar from "./Navbar";
 import Footer from "./Footer";
 
 export default function Layout({ children }) {
@@ -6,7 +6,7 @@ export default function Layout({ children }) {
   return (
 
     <>
-      <Header />
+      <Navbar />
 
       <main className="container">
     {children}
