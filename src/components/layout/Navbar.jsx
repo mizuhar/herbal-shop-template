@@ -6,17 +6,37 @@ import { useCart } from "../../context/CartContext";
 
 export default function Navbar() {
   const [user, setUser] = useState(null);
+  const [scrolled, setScrolled] = useState(false)
   const { count } = useCart();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    async function getUser() {
-      const { data } = await supabase.auth.getUser();
-      setUser(data.user);
-    }
+ useEffect(() => {
+  // първоначален user
+  supabase.auth.getUser().then(({ data }) => {
+    setUser(data.user)
+  })
 
-    getUser();
-  }, []);
+  // слушаме за промени (login/logout)
+  const { data: listener } = supabase.auth.onAuthStateChange(
+    (_event, session) => {
+      setUser(session?.user ?? null)
+    }
+  )
+
+  // cleanup
+  return () => {
+    listener.subscription.unsubscribe()
+  }
+}, [])
+  useEffect(() => {
+  function handleScroll() {
+    setScrolled(window.scrollY > 10);
+  }
+
+  window.addEventListener("scroll", handleScroll);
+
+  return () => window.removeEventListener("scroll", handleScroll);
+}, []);
 
   async function handleLogout() {
     await supabase.auth.signOut();
@@ -26,7 +46,7 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="navbar">
+      <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         <h2 className="logo">Herbal Shop</h2>
 
         <div className="nav-links">

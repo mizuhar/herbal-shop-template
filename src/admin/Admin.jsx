@@ -1,41 +1,54 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom";
 
 function Admin() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [updatingId, setUpdatingId] = useState(null);
+  const [messages, setMessages] = useState([]);
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   useEffect(() => {
-  async function init() {
+    async function init() {
+      const { data } = await supabase.auth.getUser();
 
-    const { data } = await supabase.auth.getUser()
+      if (!data.user) {
+        navigate("/login");
+        return; // ❗ СПИРА execution-а
+      }
 
-    if (!data.user) {
-      navigate("/login")
-      return // ❗ СПИРА execution-а
+      // 👉 само ако е логнат
+      const { data: ordersData, error: ordersError } = await supabase
+        .from("orders")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (ordersError) {
+        console.error(ordersError);
+      } else {
+        setOrders(ordersData);
+      }
+       
+      const { data: messagesData, error: messagesError } = await supabase
+        .from("messages")
+        .select("*")
+        .order("created_at", { ascending: false });
+
+      if (messagesError) {
+        console.error(messagesError);
+      } else {
+        setMessages(messagesData);
+      }
+    
+      
+      setLoading(false);
     }
-
-    // 👉 само ако е логнат
-    const { data: ordersData, error } = await supabase
-      .from("orders")
-      .select("*")
-      .order("created_at", { ascending: false })
-
-    if (error) {
-      console.error(error)
-    } else {
-      setOrders(ordersData)
-    }
-
-    setLoading(false)
-  }
-
-  init()
-}, [navigate])
+   
+    init();
+    
+  }, [navigate]);
 
   async function updateStatus(id) {
     setUpdatingId(id);
@@ -61,7 +74,7 @@ function Admin() {
   return (
     <div>
       <h1>Admin Dashboard</h1>
-
+<h2>Orders</h2>
       {orders.map((order) => (
         <div key={order.id} className="order-card">
           <h3>{order.customer_name}</h3>
@@ -93,8 +106,23 @@ function Admin() {
               </li>
             ))}
           </ul>
+        
         </div>
       ))}
+        <h2>Messages</h2>
+
+          {messages.length === 0 ? (
+            <p>No messages yet</p>
+          ) : (
+            messages.map((msg) => (
+              <div key={msg.id} className="message-card">
+                <h3>{msg.name}</h3>
+                <p>📧 {msg.email}</p>
+                <p>💬 {msg.message}</p>
+                <p>🕒 {new Date(msg.created_at).toLocaleString()}</p>
+              </div>
+            ))
+          )}
     </div>
   );
 }
