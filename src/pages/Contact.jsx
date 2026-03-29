@@ -12,6 +12,7 @@ export default function Contact() {
   const [success, setSuccess] = useState(false);
 
   function handleChange(e) {
+    setSuccess(false);
     setForm({ ...form, [e.target.name]: e.target.value });
   }
 
@@ -19,6 +20,13 @@ export default function Contact() {
     e.preventDefault();
     setLoading(true);
 
+      if (!form.email.includes("@")) {
+      alert("Invalid email");
+      setLoading(false);
+      return;
+    }
+
+    // 1. запис в базата
     const { error } = await supabase.from("messages").insert([
       {
         name: form.name,
@@ -30,10 +38,30 @@ export default function Contact() {
     if (error) {
       console.error(error);
       alert("Error sending message");
-    } else {
-      setSuccess(true);
-      setForm({ name: "", email: "", message: "" }); // reset
+      setLoading(false);
+      return;
     }
+
+    // 2. пращане на email 🔥
+  try {
+  const { error } = await supabase.functions.invoke("resend-email", {
+    body: {
+      name: form.name,
+      email: form.email,
+      message: form.message,
+    },
+  });
+
+  if (error) {
+    console.error("Email failed:", error);
+  }
+} catch (err) {
+  console.error("Email error:", err);
+}
+  
+    // 3. success UI
+    setSuccess(true);
+    setForm({ name: "", email: "", message: "" });
 
     setLoading(false);
   }
@@ -56,6 +84,7 @@ export default function Contact() {
 
           <form className="contact-form" onSubmit={handleSubmit}>
             <input
+              disabled={loading}
               name="name"
               placeholder="Your Name"
               value={form.name}
@@ -64,6 +93,8 @@ export default function Contact() {
             />
 
             <input
+              disabled={loading}
+              type="email"
               name="email"
               placeholder="Email"
               value={form.email}
@@ -72,6 +103,7 @@ export default function Contact() {
             />
 
             <textarea
+              disabled={loading}
               name="message"
               placeholder="Message"
               rows="5"
@@ -83,7 +115,7 @@ export default function Contact() {
             <button disabled={loading}>
               {loading ? "Sending..." : "Send Message"}
             </button>
-          {success && <p style={{ color: "green" }}>Message sent ✅</p>}
+            {success && <p style={{ color: "green" }}>Message sent ✅</p>}
           </form>
         </div>
       </div>
