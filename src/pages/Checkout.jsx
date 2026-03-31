@@ -20,35 +20,55 @@ function Checkout() {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  async function handleSubmit(e) {
-    e.preventDefault()
+ async function handleSubmit(e) {
+  e.preventDefault()
 
-    setLoading(true)
+  setLoading(true)
 
-    const { error } = await supabase.from("orders").insert([
-      {
-        customer_name: form.name,
-        phone: form.phone,
-        address: form.address,
-        items: cart,
-        total: total
-      }
-    ])
-
- if (error) {
-  console.error(error)
-  alert("Error placing order")
-} else {
-  clearCart()      // 🔥 тук
-  setSuccess(true)
-}
-
-    setLoading(false)
+  const orderData = {
+    customer_name: form.name,
+    phone: form.phone,
+    address: form.address,
+    items: cart,
+    total: total
   }
+
+  const { error } = await supabase.from("orders").insert([orderData])
+
+  if (error) {
+    console.error(error)
+    alert("Error placing order")
+    setLoading(false)
+    return
+  }
+
+  // 🔥 ТУК Е МАГИЯТА (липсваше ти)
+  try {
+    const { data, error: emailError } = await supabase.functions.invoke("resend-email", {
+      body: {
+        type: "order",
+        order: orderData
+      }
+    })
+
+    console.log("EMAIL RESPONSE:", data, emailError)
+  } catch (err) {
+    console.error("Email error:", err)
+  }
+
+  clearCart()
+  setSuccess(true)
+  setLoading(false)
+}
    
 
 if (success) {
-  return <h2>Order successful! We will contact you.</h2>
+  return (
+    <div className="success">
+      <h2>✅ Order placed successfully!</h2>
+      <p>We will contact you shortly.</p>
+    </div>
+  )
 }
 
 
@@ -60,6 +80,7 @@ if (success) {
       <form onSubmit={handleSubmit}>
 
         <input
+          disabled={loading}
           name="name"
           placeholder="Your Name"
           onChange={handleChange}
@@ -67,6 +88,7 @@ if (success) {
         />
 
         <input
+          disabled={loading}
           name="phone"
           placeholder="Phone"
           onChange={handleChange}
@@ -74,6 +96,7 @@ if (success) {
         />
 
         <textarea
+          disabled={loading}
           name="address"
           placeholder="Address"
           onChange={handleChange}
