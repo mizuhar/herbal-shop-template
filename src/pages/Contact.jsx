@@ -77,9 +77,9 @@ export default function Contact() {
 
         <div className="contact-grid">
           <div className="contact-info">
-            <p>📍 Sofia, Bulgaria</p>
+            <p>📍 Varna, Bulgaria</p>
             <p>📞 +359 888 123 456</p>
-            <p>📧 mizuhar@abv.bg</p>
+            <p>📧 ceco@abv.bg</p>
           </div>
 
           <form className="contact-form" onSubmit={handleSubmit}>
