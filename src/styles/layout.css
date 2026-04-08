@@ -13,6 +13,7 @@ nav {
   padding: 20px 40px;
   border-bottom: 1px solid #eee;
   background: rgb(223, 211, 211);
+  
 }
 
 .nav-links {
@@ -26,6 +27,7 @@ nav a {
   color: #333;
   font-weight: 500;
   transition: 0.2s;
+ 
 }
 
 nav a:hover {
@@ -82,6 +84,7 @@ main.container {
   color: white;
   border-radius: 16px;
 }
+
 .hero-content {
   max-width: 600px;
 }
@@ -107,6 +110,7 @@ main.container {
 .hero-btn:hover {
   background: #1b5e20;
 }
+
 .logo {
   font-weight: bold;
    font-size: 30px;
