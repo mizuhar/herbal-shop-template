@@ -27,6 +27,7 @@ button {
   cursor: pointer;
   font-weight: 500;
   transition: 0.2s;
+   letter-spacing: 0.3px;
 
 }
 
