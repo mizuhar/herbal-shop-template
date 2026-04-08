@@ -5,10 +5,15 @@
   --card: #ffffff;
   --text: #1c1c1c;
 }
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
 
 
 body {
-  background: var(--bg);
+  background: #f5f7f6;
   color: var(--text);
   font-family: system-ui, sans-serif;
 }
@@ -20,11 +25,13 @@ button {
   border: none;
   cursor: pointer;
   font-weight: 500;
+  transition: 0.2s;
 
 }
 
 button:hover {
   background: var(--green-dark);
+  transform: translateY(-1px);
 }
 .navbar {
   display: flex;
