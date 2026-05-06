@@ -50,6 +50,7 @@ export default function Navbar() {
         <h2 className="logo">Herbal Shop</h2>
 
         <div className="nav-links">
+          
           <Link to="/">Home</Link>
           <Link to="/shop">Shop</Link>
           <Link to="/contact">Contact</Link>

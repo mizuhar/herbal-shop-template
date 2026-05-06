@@ -1,9 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
-import Admin from "./admin/Admin"
+import Admin from "./admin/Admin";
 
 import Layout from "./components/layout/Layout";
-
 
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
@@ -15,13 +14,9 @@ import Checkout from "./pages/Checkout";
 import Login from "./admin/Login";
 
 function App() {
-
   return (
-
     <Layout>
-
       <Routes>
-
         <Route path="/admin" element={<Admin />} />
 
         <Route path="/login" element={<Login />} />
@@ -39,13 +34,9 @@ function App() {
         <Route path="/cart" element={<Cart />} />
 
         <Route path="/checkout" element={<Checkout />} />
-
       </Routes>
-
     </Layout>
-
   );
-
 }
 
 export default App;
