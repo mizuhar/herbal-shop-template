@@ -11,10 +11,9 @@ export default function Product() {
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  useEffect(() => {
-
-    async function fetchProduct() {
-
+ useEffect(() => {
+  async function fetchProduct() {
+    try {
       const { data, error } = await supabase
         .from("products")
         .select("*")
@@ -23,20 +22,29 @@ export default function Product() {
 
       if (error) {
         console.error(error)
-      } else {
-        setProduct(data)
+        setProduct(null)
+        return
       }
 
+      setProduct(data)
+    } catch (err) {
+      console.error(err)
+      setProduct(null)
+    } finally {
       setLoading(false)
     }
+  }
 
-    fetchProduct()
+  fetchProduct()
+}, [id])
 
-  }, [id])
+if (loading) {
+  return <p>Loading product...</p>
+}
 
-  if (loading) return <p>Loading...</p>
-
-  if (!product) return <p>Product not found</p>
+if (!product) {
+  return <p>Product not found.</p>
+}
 
  return (
     <div className="product-page">
