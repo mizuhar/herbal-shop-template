@@ -38,6 +38,10 @@ export default function Product() {
   fetchProduct()
 }, [id])
 
+function addToCartProduct(){
+  addToCart(product)
+}
+
 if (loading) {
   return <p>Loading product...</p>
 }
@@ -57,9 +61,7 @@ if (!product) {
 
       <h2>{product.price} €</h2>
 
-      <button onClick={() => {
-      console.log(product)
-        addToCart(product)}}>
+      <button onClick={addToCartProduct}>
         Add to Cart
         </button>
 
