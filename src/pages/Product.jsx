@@ -39,6 +39,9 @@ export default function Product() {
 }, [id])
 
 function addToCartProduct(){
+
+  if(!product) return
+
   addToCart(product)
 }
 
@@ -61,8 +64,9 @@ if (!product) {
 
       <h2>{product.price} €</h2>
 
-      <button onClick={addToCartProduct}>
-        Add to Cart
+      <button onClick={addToCartProduct} 
+      disabled={product.stock === 0}>
+        {product.stock === 0 ? 'Out of Stock': 'Add to Cart' }
         </button>
 
     </div>
