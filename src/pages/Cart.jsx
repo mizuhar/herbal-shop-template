@@ -18,18 +18,27 @@ function Cart() {
       {cart.length === 0 && <p>Your cart is empty</p>}
 
       {cart.map((item) => (
-        <div key={item.id}>
+        <div key={item.id} >
           <h3>{item.name}</h3>
 
           <p>{item.price} €</p>
 
-          <div>
+          <div >
             <button onClick={() => decreaseQuantity(item.id)}>-</button>
+            
             <span>{item.quantity}</span>
+            
             <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
 
-          <p>Subtotal: {(item.price * item.quantity).toFixed(2)} €</p>
+          <p>
+            {item.quantity} × {item.price} €
+          </p>
+
+          <p>
+            Subtotal:{" "}
+            <strong>{(item.price * item.quantity).toFixed(2)} €</strong>
+          </p>
 
           <button onClick={() => removeFromCart(item.id)}>Remove</button>
         </div>

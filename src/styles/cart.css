@@ -30,3 +30,6 @@ input, textarea {
   text-align: center;
   padding: 40px;
 }
+div{
+  gap: 10px;
+}
