@@ -30,6 +30,20 @@ input, textarea {
   text-align: center;
   padding: 40px;
 }
-div{
-  gap: 10px;
+.quantity-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 12px 0;
+}
+
+.quantity-controls span {
+  min-width: 24px;
+  text-align: center;
+  font-weight: 600;
+}
+.quantity-controls button {
+  width: 32px;
+  height: 32px;
+  padding: 0;
 }
