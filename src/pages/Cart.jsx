@@ -10,6 +10,13 @@ function Cart() {
     total,
     count,
   } = useCart();
+  function subTotalSum(item){
+
+    return (item.price * item.quantity).toFixed(2)
+  }
+  function formatPrice(price){
+    return price.toFixed(2)
+  }
 
   return (
     <div>
@@ -35,14 +42,14 @@ function Cart() {
 
           <p>
             Subtotal:{" "}
-            <strong>{(item.price * item.quantity).toFixed(2)} €</strong>
+            <strong>{subTotalSum(item)} €</strong>
           </p>
 
           <button onClick={() => removeFromCart(item.id)}>Remove</button>
         </div>
       ))}
 
-      <h2>Total: {total.toFixed(2)} €</h2>
+      <h2>Total: {formatPrice(total)} €</h2>
 
       <Link to="/checkout">
         <button>Go to Checkout</button>
