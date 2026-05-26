@@ -2,7 +2,7 @@
     return price.toFixed(2)
   }
 
- export function subTotalSum(item){
+ export function calculateSubtotal(item){
 
     return item.price * item.quantity
   }

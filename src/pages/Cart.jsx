@@ -1,6 +1,6 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
-import { formatPrice, subTotalSum } from "../helpers/priceHelper.js";
+import { formatPrice, calculateSubtotal } from "../helpers/priceHelper.js";
 
 
 function Cart() {
@@ -39,7 +39,7 @@ function Cart() {
 
           <p>
             Subtotal:{" "}
-            <strong>{formatPrice(subTotalSum(item))} €</strong>
+            <strong>{formatPrice(calculateSubtotal(item))} €</strong>
           </p>
 
           <button onClick={() => removeFromCart(item.id)}>Remove</button>
