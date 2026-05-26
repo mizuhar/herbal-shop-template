@@ -1,5 +1,7 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
+import { formatPrice, subTotalSum } from "../helpers/priceHelper.js";
+
 
 function Cart() {
   const {
@@ -10,13 +12,8 @@ function Cart() {
     total,
     count,
   } = useCart();
-  function subTotalSum(item){
-
-    return (item.price * item.quantity).toFixed(2)
-  }
-  function formatPrice(price){
-    return price.toFixed(2)
-  }
+ 
+ 
 
   return (
     <div>
@@ -31,7 +28,7 @@ function Cart() {
           <p>{item.price} €</p>
 
           <div className="quantity-controls">
-            <button onClick={() => decreaseQuantity(item.id)}>-</button>
+            <button onClick={() => decreaseQuantity(item.id)} disabled={item.quantity === 1}>-</button>
             <span>{item.quantity}</span>
             <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
@@ -42,7 +39,7 @@ function Cart() {
 
           <p>
             Subtotal:{" "}
-            <strong>{subTotalSum(item)} €</strong>
+            <strong>{formatPrice(subTotalSum(item))} €</strong>
           </p>
 
           <button onClick={() => removeFromCart(item.id)}>Remove</button>
