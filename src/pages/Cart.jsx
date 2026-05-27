@@ -2,7 +2,6 @@ import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { formatPrice, calculateSubtotal } from "../helpers/priceHelper.js";
 
-
 function Cart() {
   const {
     cart,
@@ -12,14 +11,21 @@ function Cart() {
     total,
     count,
   } = useCart();
- 
- 
 
   return (
     <div>
       <h1>Cart</h1>
 
-      {cart.length === 0 && <p>Your cart is empty</p>}
+      {cart.length === 0 && (
+        <div className="empty-cart">
+          <h2>Your cart is empty</h2>
+          <p>Add some products to continue shopping.</p>
+
+          <Link to="/shop">
+            <button>Go to Shop</button>
+          </Link>
+        </div>
+      )}
 
       {cart.map((item) => (
         <div key={item.id}>
@@ -28,7 +34,12 @@ function Cart() {
           <p>{item.price} €</p>
 
           <div className="quantity-controls">
-            <button onClick={() => decreaseQuantity(item.id)} disabled={item.quantity === 1}>-</button>
+            <button
+              onClick={() => decreaseQuantity(item.id)}
+              disabled={item.quantity === 1}
+            >
+              -
+            </button>
             <span>{item.quantity}</span>
             <button onClick={() => increaseQuantity(item.id)}>+</button>
           </div>
@@ -38,8 +49,7 @@ function Cart() {
           </p>
 
           <p>
-            Subtotal:{" "}
-            <strong>{formatPrice(calculateSubtotal(item))} €</strong>
+            Subtotal: <strong>{formatPrice(calculateSubtotal(item))} €</strong>
           </p>
 
           <button onClick={() => removeFromCart(item.id)}>Remove</button>
