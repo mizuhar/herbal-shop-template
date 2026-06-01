@@ -1,6 +1,8 @@
 import { useCart } from "../context/CartContext";
 import { Link } from "react-router-dom";
 import { formatPrice, calculateSubtotal } from "../helpers/priceHelper.js";
+import CartSummary from "./CartSummary.jsx";
+
 
 function Cart() {
   const {
@@ -56,7 +58,8 @@ function Cart() {
         </div>
       ))}
 
-      <h2>Total: {formatPrice(total)} €</h2>
+      <CartSummary total={formatPrice(total)}/>
+
 
       <Link to="/checkout">
         <button>Go to Checkout</button>
